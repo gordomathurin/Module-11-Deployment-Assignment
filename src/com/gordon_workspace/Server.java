@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 
 public class Server {
 
@@ -24,6 +25,7 @@ public class Server {
     }
 
     public static void main (String[] args) {
+        Date date = new Date();
         try{
             ServerSocket serverSocket = new ServerSocket(8000);
 
@@ -32,10 +34,13 @@ public class Server {
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
-            System.out.println("Server Running....");
+            System.out.println("Server Started running at " + date );
 
             int num = (int)dataInputStream.readInt();
             dataOutputStream.writeUTF(isNumPrime(num));
+            System.out.println("Number received from client: " + num);
+
+
             dataOutputStream.flush();
             dataOutputStream.close();
             serverSocket.close();
